@@ -1,6 +1,8 @@
 import cors from 'cors'
 import express from 'express'
 
+import Router from './router.js'
+
 class App {
   constructor(router) {
     this.app = express()
@@ -14,7 +16,7 @@ class App {
   }
 
   #setupRoutes() {
-    this.app.get('/ping', (req, res) => res.send('PONG'))
+    this.router.initializeRouter(this.app)
   }
 
   initialize() {
@@ -23,4 +25,7 @@ class App {
   }
 }
 
-export default App
+const expressApp = new App(Router)
+expressApp.initialize()
+
+export default expressApp.app
